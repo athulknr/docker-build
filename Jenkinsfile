@@ -16,7 +16,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh """
+                    bat """
                     docker build -t ${IMAGE_NAME}:latest .
                     """
                 }
@@ -26,7 +26,7 @@ pipeline {
         stage('Login to Docker Hub') {
             steps {
                 script {
-                    sh """
+                    bat """
                     echo "${DOCKERHUB_CREDENTIALS_PSW}" | docker login -u "${DOCKERHUB_CREDENTIALS_USR}" --password-stdin
                     """
                 }
@@ -36,7 +36,7 @@ pipeline {
         stage('Push Image to Docker Hub') {
             steps {
                 script {
-                    sh """
+                    bat """
                     docker push ${IMAGE_NAME}:latest
                     """
                 }
@@ -46,7 +46,7 @@ pipeline {
 
     post {
         always {
-            sh "docker logout"
+            bat "docker logout"
         }
     }
 }

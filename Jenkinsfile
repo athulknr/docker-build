@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds123')
-        IMAGE_NAME = "athulk9/jenkins-job"
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds')
+        IMAGE_NAME = "athulk9/jenkinsjob"
     }
 
     stages {

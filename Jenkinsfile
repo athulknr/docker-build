@@ -17,9 +17,20 @@ pipeline {
             steps {
                 script {
                     bat """
-                    docker build -t ${IMAGE_NAME}:latest .
+                    docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .
                     """
                 }
+            }
+        }
+
+          stage('Trivy Image Scan') {
+            steps {
+                sh """
+                    trivy image \
+                    --scanners vuln \
+                    --severity HIGH,CRITICAL \
+                    ${IMAGE_NAME}:${IMAGE_TAG}
+                """
             }
         }
 
